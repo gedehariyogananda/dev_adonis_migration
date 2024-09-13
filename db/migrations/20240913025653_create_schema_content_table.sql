@@ -20,12 +20,14 @@ CREATE TABLE "content"."article"(
   "id"            uuid          DEFAULT uuid_generate_v4() ,
   "title"         VARCHAR(255) 	NOT NULL ,
   "content"       TEXT         	NOT NULL ,
-  "author"        VARCHAR(100) 	NOT NULL ,
+  "user_id"       uuid 	NOT NULL ,
   "created_at"    TIMESTAMP   	NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   "updated_at"    TIMESTAMP   	NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   PRIMARY KEY ("id"),
+  FOREIGN KEY ("user_id") REFERENCES "user"."account"("id") ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+CREATE INDEX "fkey_carticle_caccount" ON "content"."article" ("user_id");
 CREATE INDEX "pkey_carticle" ON "content"."article" ("id");
 
 -- create article_category table
@@ -51,9 +53,13 @@ CREATE TABLE "content"."comment"(
   "created_at"    TIMESTAMP   	NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   "updated_at"    TIMESTAMP   	NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   PRIMARY KEY ("id"),
-  FOREIGN KEY ("article_id") REFERENCES "content"."article"("id") ON UPDATE CASCADE ON DELETE CASCADE
+  FOREIGN KEY ("article_id") REFERENCES "content"."article"("id") ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY ("user_id") REFERENCES "user"."account"("id") ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+CREATE INDEX "fkey_ccomment_carticle" ON "content"."comment" ("article_id");
+CREATE INDEX "fkey_ccomment_caccount" ON "content"."comment" ("user_id");
+
 
 
 -- migrate:down
