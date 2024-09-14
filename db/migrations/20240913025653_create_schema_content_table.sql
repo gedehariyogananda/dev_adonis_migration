@@ -60,12 +60,25 @@ CREATE TABLE "content"."comment"(
 CREATE INDEX "fkey_ccomment_carticle" ON "content"."comment" ("article_id");
 CREATE INDEX "fkey_ccomment_caccount" ON "content"."comment" ("user_id");
 
+-- create table article_images
+DROP TABLE IF EXISTS "content"."article_images" CASCADE;
+CREATE TABLE "content"."article_images"(
+  "id"            uuid          DEFAULT uuid_generate_v4() ,
+  "article_id"    uuid          NOT NULL ,
+  "article_img"           TEXT         	NOT NULL ,
+  "created_at"    TIMESTAMP   	NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  "updated_at"    TIMESTAMP   	NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  PRIMARY KEY ("id"),
+  FOREIGN KEY ("article_id") REFERENCES "content"."article"("id") ON UPDATE CASCADE ON DELETE CASCADE
+);
 
+CREATE INDEX "fkey_carticle_images_carticle" ON "content"."article_images" ("article_id");
 
 -- migrate:down
 DROP TABLE IF EXISTS "content"."comment" CASCADE;
 DROP TABLE IF EXISTS "content"."article_categories" CASCADE;
 DROP TABLE IF EXISTS "content"."article" CASCADE;
 DROP TABLE IF EXISTS "content"."category" CASCADE;
+DROP TABLE IF EXISTS "content"."article_images" CASCADE;
 DROP SCHEMA IF EXISTS "content" CASCADE;
 
