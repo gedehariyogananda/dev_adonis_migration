@@ -111,7 +111,7 @@ CREATE TABLE "user".account (
     username character varying(100) NOT NULL,
     pwd text NOT NULL,
     email character varying(255) NOT NULL,
-    google_id character varying(255) NOT NULL,
+    google_id character varying(255),
     fullname character varying(100) NOT NULL,
     avatar character varying(255),
     is_ban boolean DEFAULT false NOT NULL,

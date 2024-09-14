@@ -18,6 +18,11 @@ CREATE TABLE "user"."role"(
 );
 CREATE INDEX "pkey_urole" ON "user"."role" ("id");
 
+-- dumy role data 
+INSERT INTO "user"."role"("id", "code", "name") VALUES ('e6d6b8d0-9b6e-4d3d-8f7f-2b7a6b5d8a2d', 'USER', 'User');
+INSERT INTO "user"."role"("id", "code", "name") VALUES ('e6d6b8d0-9b6e-4d3d-8f7f-2b7a6b5d8a2e', 'ADMN', 'Admin');
+
+
 -- create account table
 DROP TABLE IF EXISTS "user"."account" CASCADE;
 CREATE TABLE "user"."account"(
@@ -26,7 +31,7 @@ CREATE TABLE "user"."account"(
   "username"          VARCHAR(100)    NOT NULL UNIQUE,
   "pwd"               TEXT        		NOT NULL ,
   "email"             VARCHAR(255) 		NOT NULL UNIQUE ,
-  "google_id"         VARCHAR(255)    NOT NULL ,
+  "google_id"         VARCHAR(255)    NULL ,
   "fullname"          VARCHAR(100)    NOT NULL ,
   "avatar"            VARCHAR(255)    NULL ,
   "is_ban"            BOOLEAN     	NOT NULL  DEFAULT FALSE ,
